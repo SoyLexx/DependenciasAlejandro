@@ -19,7 +19,9 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-public class JsonAlquilerDao {
+import es.iesquevedo.dao.interfaces.AlquilerDao;
+
+public class JsonAlquilerDao implements AlquilerDao {
     private final File file;
     private final Gson gson;
     private List<Alquiler> store = new ArrayList<>();

@@ -1,8 +1,8 @@
 package es.iesquevedo.servicios;
 
-import es.iesquevedo.dao.JsonAlquilerDao;
-import es.iesquevedo.dao.JsonPeliculaDao;
-import es.iesquevedo.dao.JsonSocioDao;
+import es.iesquevedo.dao.interfaces.AlquilerDao;
+import es.iesquevedo.dao.interfaces.PeliculaDao;
+import es.iesquevedo.dao.interfaces.SocioDao;
 import es.iesquevedo.modelo.Alquiler;
 import es.iesquevedo.modelo.Pelicula;
 import es.iesquevedo.modelo.Socio;
@@ -12,27 +12,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AlquilerService {
-    private final JsonAlquilerDao alquilerDao;
-    private final JsonPeliculaDao peliculaDao;
-    private final JsonSocioDao socioDao;
+    private final AlquilerDao alquilerDao;
+    private final PeliculaDao peliculaDao;
+    private final SocioDao socioDao;
     private final int limitePorSocio;
 
-    public AlquilerService() {
-        // Acoplamiento directo: se crean las implementaciones concretas aquí.
-        String base = System.getProperty("user.dir");
-        this.peliculaDao = new JsonPeliculaDao(base + "/peliculas.json");
-        this.socioDao = new JsonSocioDao(base + "/socios.json");
-        this.alquilerDao = new JsonAlquilerDao(base + "/alquileres.json");
-        this.limitePorSocio = 3;
+    public AlquilerService(
+            AlquilerDao alquilerDao,
+            PeliculaDao peliculaDao,
+            SocioDao socioDao,
+            int limitePorSocio
+    ) {
+        this.alquilerDao = alquilerDao;
+        this.peliculaDao = peliculaDao;
+        this.socioDao = socioDao;
+        this.limitePorSocio = limitePorSocio;
     }
 
-    // Constructor alternativo para pruebas que permite pasar rutas de fichero
-    public AlquilerService(String basePath) {
-        this.peliculaDao = new JsonPeliculaDao(basePath + "/peliculas.json");
-        this.socioDao = new JsonSocioDao(basePath + "/socios.json");
-        this.alquilerDao = new JsonAlquilerDao(basePath + "/alquileres.json");
-        this.limitePorSocio = 3;
-    }
 
     public Alquiler alquilar(Socio socio, Pelicula pelicula) {
         if (socio == null) throw new RuntimeException("Socio nulo");

@@ -1,0 +1,9 @@
+[
+  {
+    "id": 1,
+    "socio": { "dni": "12345678A", "nombre": "Juan" },
+    "pelicula": { "id": 1, "titulo": "Matrix", "anio": 1999, "precio": 2.5, "disponible": false },
+    "fechaAlquiler": "2026-02-09",
+    "fechaDevolucion": null
+  }
+]
